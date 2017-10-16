@@ -1,13 +1,9 @@
 
-.gitignore
-.idea/inspectionProfiles/
-.idea/vcs.xml
-.idea/workspace.xml
-core/target/
-dao/target/
-service/target/
-
+.idea/
 *.iml
+**.iml
+
+target
 
 
 # User-specific stuff:

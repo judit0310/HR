@@ -4,7 +4,7 @@ import hu.uni.miskolc.hr.model.Employee;
 
 import java.util.Collection;
 
-public interface IEmployeeService {
+public interface EmployeeService {
 
     public void addEmployee(Employee employee);
 

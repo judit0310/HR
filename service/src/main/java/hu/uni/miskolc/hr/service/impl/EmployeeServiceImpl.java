@@ -1,11 +1,10 @@
 package hu.uni.miskolc.hr.service.impl;
 
 import hu.uni.miskolc.hr.model.Employee;
-import hu.uni.miskolc.hr.service.IEmployeeService;
 
 import java.util.Collection;
 
-public class EmployeeService implements IEmployeeService {
+public class EmployeeServiceImpl implements hu.uni.miskolc.hr.service.EmployeeService {
     public void addEmployee(Employee employee) {
 
 

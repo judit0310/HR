@@ -4,7 +4,7 @@ import hu.uni.miskolc.hr.model.Employee;
 
 import java.util.Collection;
 
-public interface IEmployeeDAO {
+public interface EmployeeDAO {
 
     public Collection<Employee> readEmployees();
 

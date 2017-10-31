@@ -18,7 +18,12 @@ public class Employee {
     private double payment;
     private int numberOfChildren;
 
-    public Employee(String employeeId, String firstName, String lastName, LocalDate birthDate, Gender gender, String bankAccount, double payment, int numberOfChildren) throws InvalidBirthDateException, NegativePaymentException, NegativeChildNumberException {
+
+    protected Employee(){
+
+    }
+
+    public Employee(String employeeId, String firstName, String lastName,LocalDate birthDate, Gender gender, String bankAccount, double payment, int numberOfChildren) throws InvalidBirthDateException, NegativePaymentException, NegativeChildNumberException {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,5 +86,19 @@ public class Employee {
 
     public int getNumberOfChildren() {
         return numberOfChildren;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId='" + employeeId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", gender=" + gender +
+                ", bankAccount='" + bankAccount + '\'' +
+                ", payment=" + payment +
+                ", numberOfChildren=" + numberOfChildren +
+                '}';
     }
 }

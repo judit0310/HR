@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import hu.uni.miskolc.hr.dao.EmployeeDAO;
 import hu.uni.miskolc.hr.exceptions.EmployeeIDIsOccupiedException;
+import hu.uni.miskolc.hr.exceptions.EmployeeNotFoundException;
 import hu.uni.miskolc.hr.model.Employee;
 
 import java.io.File;
@@ -60,9 +61,22 @@ public class EmployeeDAOJSON implements EmployeeDAO
     }
 
     @Override
-    public Employee readEmployeeById(String employeeId) {
-        //TODO
-        return null;
+    public Employee readEmployeeById(String employeeId) throws EmployeeNotFoundException {
+        Collection<Employee> employees = new HashSet<Employee>();
+        try {
+            employees = mapper.readValue(jsonfile, new TypeReference<HashSet<Employee>>(){});
+            for(Employee e : employees){
+                if (e.getEmployeeId().equalsIgnoreCase(employeeId)) {
+                    return e;
+                }
+            }
+        }catch (MismatchedInputException e){
+            System.err.println("Empty file");
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        throw new EmployeeNotFoundException(employeeId);
     }
 
     @Override

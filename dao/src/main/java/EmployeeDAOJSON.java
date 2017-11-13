@@ -49,6 +49,7 @@ public class EmployeeDAOJSON implements EmployeeDAO
     public Collection<Employee> readEmployees() {
         Collection<Employee> employees = new HashSet<Employee>();
         try {
+            System.out.println(jsonfile.getAbsoluteFile());
             employees = mapper.readValue(jsonfile, new TypeReference<HashSet<Employee>>(){});
         }catch (MismatchedInputException e){
             System.err.println("Empty file");

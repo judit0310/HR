@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.jws.WebParam;
+import java.util.Collection;
+import java.util.List;
 
 @Controller
 public class EmployeeController {
@@ -27,6 +29,7 @@ public class EmployeeController {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("list");
         mav.addObject("employees",employeeService.getAllEmployee());
+        System.out.println(employeeService.getAllEmployee());
         return mav;
     }
 
@@ -41,10 +44,25 @@ public class EmployeeController {
     }
 
 
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Nem talalhato")
+    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "A kert azonosito nem talalhato")
     @ExceptionHandler(EmployeeNotFoundException.class)
     public void employeeNotFound(){
 
+    }
+
+    @RequestMapping(value = "/restEmployees")
+    @ResponseBody
+    public Collection<Employee> getRESTEmployee(){
+        return employeeService.getAllEmployee();
+    }
+
+    @RequestMapping(value = "/restEmployee/{employeeId}")
+    @ResponseBody
+    public Employee getrestEmployeeById(@PathVariable(value = "employeeId")
+                                                String employee)
+            throws EmployeeNotFoundException{
+        Employee result =  employeeService.getEmployeeById(employee);
+        return result;
     }
 
 

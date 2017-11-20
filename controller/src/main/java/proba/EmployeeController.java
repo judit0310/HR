@@ -44,7 +44,7 @@ public class EmployeeController {
     }
 
 
-    @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "A kert azonosito nem talalhato")
+    @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT , reason = "A kert azonosito nem talalhato")
     @ExceptionHandler(EmployeeNotFoundException.class)
     public void employeeNotFound(){
 

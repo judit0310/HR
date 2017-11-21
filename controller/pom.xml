@@ -51,7 +51,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <packageName>proba.dto</packageName>
+                    <packageName>hu.uni.miskolc.hr.controller.dto</packageName>
                     <sources>
                         <source>${project.basedir}/src/main/resources</source>
                     </sources>

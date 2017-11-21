@@ -10,9 +10,9 @@ public interface EmployeeService {
 
     public void addEmployee(Employee employee) throws EmployeeIDIsOccupiedException;
 
-    public void removeEmployee(String employeeId);
+    public void removeEmployee(String employeeId) throws EmployeeNotFoundException;
 
-    public void updateEmployee(Employee employee);
+    public void updateEmployee(Employee employee) throws EmployeeNotFoundException;
 
     public Collection<Employee> getAllEmployee();
 

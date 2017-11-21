@@ -1,9 +1,7 @@
-package proba;
+package hu.uni.miskolc.hr.controller;
 
-import hu.uni.miskolc.hr.exceptions.EmployeeIDIsOccupiedException;
-import hu.uni.miskolc.hr.exceptions.InvalidBirthDateException;
-import hu.uni.miskolc.hr.exceptions.NegativeChildNumberException;
-import hu.uni.miskolc.hr.exceptions.NegativePaymentException;
+import hu.uni.miskolc.hr.controller.dto.EmployeeRequest;
+import hu.uni.miskolc.hr.exceptions.*;
 import hu.uni.miskolc.hr.model.Employee;
 import hu.uni.miskolc.hr.model.Gender;
 import hu.uni.miskolc.hr.service.EmployeeService;
@@ -18,33 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.time.LocalDate;
 
 @Controller
-@RequestMapping(value = "/dto")
 public class DTOController {
 
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping(value = {"","/"})
-    public void getIndex(){
-        System.out.println("GET index");
 
-    }
-
-    @RequestMapping(value = "/list")
-    public void getDTOs(){
-        System.out.println("GET DTOS");
-
-    }
-
-    @RequestMapping(value = "/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/addEmployee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public void addEmployee(@RequestBody proba.dto.EmployeeRequest request){
-        System.out.println(request);
-        System.out.println(request.getEmployeeId());
-        request.getEmployeeId();
+    public void addEmployee(@RequestBody EmployeeRequest request){
         try{
         Employee e = new Employee(request.getEmployeeId(), request.getLastName(), request.getFirstName(), LocalDate.MIN, Gender.valueOf(request.getGender()),"",0,0);
-        System.out.println(e);
         employeeService.addEmployee(e);}
         catch (InvalidBirthDateException e){
            e.printStackTrace();
@@ -55,10 +37,24 @@ public class DTOController {
         } catch (EmployeeIDIsOccupiedException e) {
             e.printStackTrace();
         }
-        System.out.println(employeeService.getAllEmployee());
-
-
     }
 
+
+    @RequestMapping(value = "/updateEmployee", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public void updateEmployee(@RequestBody hu.uni.miskolc.hr.controller.dto.EmployeeRequest request){
+        try{
+            Employee e = new Employee(request.getEmployeeId(), request.getLastName(), request.getFirstName(), LocalDate.MIN, Gender.valueOf(request.getGender()),"",0,0);
+            employeeService.updateEmployee(e);} catch (InvalidBirthDateException e) {
+            e.printStackTrace();
+        } catch (NegativeChildNumberException e) {
+            e.printStackTrace();
+        } catch (NegativePaymentException e) {
+            e.printStackTrace();
+        } catch (EmployeeNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

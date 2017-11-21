@@ -1,3 +1,5 @@
+package hu.uni.miskolc.hr.dao.json;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
@@ -105,14 +107,31 @@ public class EmployeeDAOJSON implements EmployeeDAO
     }
 
     @Override
-    public void updateEmployee(Employee employee) {
-        //TODO
+    public void updateEmployee(Employee employee) throws EmployeeNotFoundException {
+        Collection<Employee> employees = readEmployees();
+        for(Employee e : employees){
+            if(e.getEmployeeId().equalsIgnoreCase(employee.getEmployeeId())){
+                employees.remove(e);
+                employees.add(employee);
+            }
+        }
+        try {
+            mapper.writeValue(jsonfile, employees);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     @Override
-    public void deleteEmployee(String employeeId) {
-        //TODO
-
+    public void deleteEmployee(String employeeId) throws EmployeeNotFoundException {
+        Employee removableEmployee = readEmployeeById(employeeId);
+        Collection<Employee> employees = readEmployees();
+        employees.remove(removableEmployee);
+        try {
+            mapper.writeValue(jsonfile, employees);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

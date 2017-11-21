@@ -1,4 +1,4 @@
-package proba;
+package hu.uni.miskolc.hr.controller;
 
 import hu.uni.miskolc.hr.exceptions.EmployeeNotFoundException;
 import hu.uni.miskolc.hr.model.Employee;
@@ -19,24 +19,19 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @RequestMapping(value = "/hello")
-    public void sayHello(){
-
-    }
-
     @RequestMapping(value = "/getEmployees")
-    public ModelAndView getEmployees(){
+    public ModelAndView getEmployees() {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("list");
-        mav.addObject("employees",employeeService.getAllEmployee());
+        mav.addObject("employees", employeeService.getAllEmployee());
         System.out.println(employeeService.getAllEmployee());
         return mav;
     }
 
     @RequestMapping(value = "/Employee/{employeeId}")
     public ModelAndView getEmployeeById(@PathVariable(value = "employeeId")
-                                                    String employee)
-            throws EmployeeNotFoundException{
+                                                String employee)
+            throws EmployeeNotFoundException {
         ModelAndView mav = new ModelAndView("employeedata");
         mav.addObject("employee",
                 employeeService.getEmployeeById(employee));
@@ -44,15 +39,24 @@ public class EmployeeController {
     }
 
 
-    @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT , reason = "A kert azonosito nem talalhato")
+    //Built-in error page
+
+    @ResponseStatus(value = HttpStatus.I_AM_A_TEAPOT, reason = "A kert azonosito nem talalhato")
     @ExceptionHandler(EmployeeNotFoundException.class)
-    public void employeeNotFound(){
+    public void employeeNotFound() {
+
+    }
+
+    //Custom error page
+    @ExceptionHandler(EmployeeNotFoundException.class)
+    public String employeeNotFoundCustomPage() {
+        return "error";
 
     }
 
     @RequestMapping(value = "/restEmployees")
     @ResponseBody
-    public Collection<Employee> getRESTEmployee(){
+    public Collection<Employee> getRESTEmployee() {
         return employeeService.getAllEmployee();
     }
 
@@ -60,8 +64,8 @@ public class EmployeeController {
     @ResponseBody
     public Employee getrestEmployeeById(@PathVariable(value = "employeeId")
                                                 String employee)
-            throws EmployeeNotFoundException{
-        Employee result =  employeeService.getEmployeeById(employee);
+            throws EmployeeNotFoundException {
+        Employee result = employeeService.getEmployeeById(employee);
         return result;
     }
 

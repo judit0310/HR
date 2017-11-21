@@ -11,7 +11,6 @@ public class EmployeeServiceImpl implements hu.uni.miskolc.hr.service.EmployeeSe
 
     public EmployeeDAO dao;
 
-
     public EmployeeServiceImpl(EmployeeDAO dao) {
         this.dao = dao;
     }
@@ -21,11 +20,13 @@ public class EmployeeServiceImpl implements hu.uni.miskolc.hr.service.EmployeeSe
 
     }
 
-    public void removeEmployee(String employeeId) {
+    public void removeEmployee(String employeeId) throws EmployeeNotFoundException {
+        dao.deleteEmployee(employeeId);
 
     }
 
-    public void updateEmployee(Employee employee) {
+    public void updateEmployee(Employee employee) throws EmployeeNotFoundException {
+        dao.updateEmployee(employee);
 
     }
 

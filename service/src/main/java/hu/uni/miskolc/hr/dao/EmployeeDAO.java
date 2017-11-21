@@ -14,8 +14,8 @@ public interface EmployeeDAO {
 
     public void createEmployee(Employee employee) throws EmployeeIDIsOccupiedException;
 
-    public void updateEmployee(Employee employee);
+    public void updateEmployee(Employee employee) throws EmployeeNotFoundException;
 
-    public void deleteEmployee(String employeeId);
+    public void deleteEmployee(String employeeId) throws EmployeeNotFoundException;
 
 }
